@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% block title %}Books{% endblock title %}
+{% block content %}
+	{% for post in posts %}
+		<h2><a href="{{ post.get_absolute_url }}" class="big-title">{{ post.title }}</a></h2>
+		<p>Author: {% for author in post.author.all %}
+				<a href="{% url 'author_list' author.slug %}">{{ author.name }} </a> 
+			{% endfor %}
+		</p>
+		{{ post.body|truncatewords:30 }}
+		<a href="{{ post.get_absolute_url }}"><img src="{{ post.image.url }}" alt="connect" style="max-height: 300px;"></a>
+	{% endfor %}
+	{% include "main/paginator.html" with page=posts %}
+{% endblock content %}

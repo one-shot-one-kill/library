@@ -1,0 +1,25 @@
+{% load my_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}{% endblock title %}</title>
+	<link href="{% static 'css/main.css' %}" rel="stylesheet">
+</head>
+<body>
+	<div class="content">
+		{% block content %}{% endblock content %}
+	</div>
+	<div class="sidebar">
+		<h2>Most commented books</h2>
+		{% most_commented_post as mcp %}
+		<ul>
+			{% for book in mcp %}
+				<li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a>
+			{% endfor %}
+		</ul>
+	</div>
+</body>
+</html>
